@@ -63,26 +63,59 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots")
 )
 
-lazy val root = (project in file(".")).
-  settings(
+val ScalaVersion = "2.12.6"
+val ProjectVersion = "0.1.0-SNAPSHOT"
+
+lazy val db = (project in file("db"))
+  .settings(
     commonSettings,
     inThisBuild(List(
       organization := "virusdave",
-      scalaVersion := "2.12.6",
-      version      := "0.1.0-SNAPSHOT"
+      scalaVersion := ScalaVersion,
+      version      := ProjectVersion
     )),
-    name := "Slick-Scratch",
-    libraryDependencies ++= Seq(
-      "com.chuusai" %% "shapeless" % "2.3.3",
-      "com.github.tminglei" %% "slick-pg" % "0.16.3",
-      "com.github.tminglei" %% "slick-pg_play-json" % "0.16.3",
-      "com.typesafe.slick" %% "slick" % "3.2.3",
-      "com.typesafe.slick" %% "slick-codegen" % "3.2.3",
-      "com.typesafe.slick" %% "slick-hikaricp" % "3.2.3",
-      "io.underscore"      %% "slickless" % "0.3.3",
-      "org.postgresql" % "postgresql" % "42.2.5",
-      "org.slf4j" % "slf4j-nop" % "1.6.4",
-      
-      scalaTest % Test
-    )
+    name := "Slick-db",
+    libraryDependencies ++= LibraryDependencies
+  )
+
+lazy val db_gen = (project in file("db_gen"))
+  .settings(
+    commonSettings,
+    inThisBuild(List(
+      organization := "virusdave",
+      scalaVersion := ScalaVersion,
+      version      := ProjectVersion
+    )),
+    name := "Slick-db_gen",
+    libraryDependencies ++= LibraryDependencies
+  )
+  .dependsOn(db)
+
+lazy val db_all = project
+  .aggregate(
+    db,
+    db_gen
+  )
+
+lazy val scratch_playground = (project in file("scratch_playground"))
+  .settings(
+    commonSettings,
+    inThisBuild(List(
+      organization := "virusdave",
+      scalaVersion := ScalaVersion,
+      version      := ProjectVersion
+    )),
+    name := "Slick-scratch_playground",
+    libraryDependencies ++= LibraryDependencies,
+  )
+  .dependsOn(
+    db,
+    db_gen,
+  )
+
+lazy val root = (project in file("."))
+  .aggregate(
+    db,
+    db_gen,
+    scratch_playground,
   )

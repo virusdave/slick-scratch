@@ -186,7 +186,9 @@ object ScratchMain {
 //  private implicit val __9 = _liftTupleShapeToCaseClasses[ColumnsShapeLevel, IntBool3Lift, IntBool3, _gIB3L.Repr, _gIB3.Repr]
 //  private implicit val _10 = implicitly[Shape[ColumnsShapeLevel, IntBool3Lift, IntBool3, IntBool3Lift]]
   //private implicit val _11 = implicitly[Shape[ColumnsShapeLevel, IntBool3, IntBool3, _]]
-  private implicit val _11 = implicitly[Shape[ColumnsShapeLevel, IntBool3, IntBool3, IntBool3Lift]]
+
+  // TODO(dave): Why does this next line fail to compile?
+//  private implicit val _11 = implicitly[Shape[ColumnsShapeLevel, IntBool3, IntBool3, IntBool3Lift]]
   //----------------------------------------------------------------------------------------------------
   def main(args: Array[String]): Unit = {
     println("Hello, world!")
