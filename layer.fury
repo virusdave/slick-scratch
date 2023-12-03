@@ -1,8 +1,25 @@
 version	1
 schemas	default	id	default
-		projects	
+		projects	slick-scratch	id	slick-scratch
+				modules	core	id	core
+						kind	library
+						main	None
+						plugin	None
+						manifest	
+						compiler	projectId	java
+							moduleId	compiler
+							intransitive	false
+						after	
+						params	
+						sources	
+						binaries	
+						resources	
+						bloopSpec	None
+				main	Some	core
+				license	unknown
+				description	
 		repos	
 		imports	
-		main	None
+		main	Some	slick-scratch
 main	default
 aliases	
